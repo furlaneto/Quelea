@@ -102,7 +102,11 @@ public class LibrarySongList extends StackPane {
                 final TextFieldListCell<SongDisplayable> cell = new TextFieldListCell<>(new StringConverter<SongDisplayable>() {
                     @Override
                     public String toString(SongDisplayable song) {
-                        return song.getListHTML();
+                        String songTitle = song.getListHTML();
+                        if (!song.getAuthor().equals("")) {
+                            songTitle += " - " + song.getAuthor();
+                        }
+                        return songTitle;
                     }
 
                     @Override
