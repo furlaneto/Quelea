@@ -1,17 +1,17 @@
-/* 
+/*
  * This file is part of Quelea, free projection software for churches.
- * 
- * 
+ *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,12 +34,15 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DataFormat;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.quelea.data.Background;
 import org.quelea.data.ThemeDTO;
 import org.quelea.data.db.SongManager;
@@ -55,6 +58,7 @@ import org.xml.sax.SAXException;
 /**
  * A song that contains a number of sections (verses, choruses, etc.)
  * <p/>
+ *
  * @author Michael
  */
 public class SongDisplayable implements TextDisplayable, Comparable<SongDisplayable>, Serializable {
@@ -71,7 +75,8 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Create a new builder with the required fields.
          * <p/>
-         * @param title the title of the song.
+         *
+         * @param title  the title of the song.
          * @param author the author of the song.
          */
         public Builder(String title, String author) {
@@ -81,6 +86,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the id of the song.
          * <p/>
+         *
          * @param id the song's id.
          * @return this builder.
          */
@@ -92,6 +98,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the ccli number of the song.
          * <p/>
+         *
          * @param ccli the song's ccli number.
          * @return this builder.
          */
@@ -106,6 +113,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the year of the song.
          * <p/>
+         *
          * @param year the song's year.
          * @return this builder.
          */
@@ -120,6 +128,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the publisher of the song.
          * <p/>
+         *
          * @param publisher the song's publisher.
          * @return this builder.
          */
@@ -134,6 +143,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the theme of this song..
          * <p/>
+         *
          * @param theme the song's theme.
          * @return this builder.
          */
@@ -145,6 +155,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the lyrics of this song..
          * <p/>
+         *
          * @param lyrics the song's lyrics.
          * @return this builder.
          */
@@ -156,6 +167,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the copyright info of this song..
          * <p/>
+         *
          * @param copyright the song's copyright info.
          * @return this builder.
          */
@@ -170,6 +182,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the key of this song..
          * <p/>
+         *
          * @param key the song's key.
          * @return this builder.
          */
@@ -189,6 +202,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the capo of this song..
          * <p/>
+         *
          * @param capo the song's capo.
          * @return this builder.
          */
@@ -203,6 +217,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Set the info string of this song..
          * <p/>
+         *
          * @param info the song's information field.
          * @return this builder.
          */
@@ -217,12 +232,14 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
         /**
          * Get the song from this builder with all the fields set appropriately.
          * <p/>
+         *
          * @return the song.
          */
         public SongDisplayable get() {
             return song;
         }
     }
+
     public static final DataFormat SONG_DISPLAYABLE_FORMAT = new DataFormat("songdisplayable");
     private static final Logger LOGGER = LoggerUtils.getLogger();
     private boolean updateInDB = true;
@@ -247,6 +264,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Copy constructor - creates a shallow copy.
      * <p/>
+     *
      * @param song the song to copy to create the new song.
      */
     public SongDisplayable(SongDisplayable song) {
@@ -273,7 +291,8 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Create a new, empty song.
      * <p/>
-     * @param title the title of the song.
+     *
+     * @param title  the title of the song.
      * @param author the author of the song.
      */
     public SongDisplayable(String title, String author) {
@@ -285,9 +304,10 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Create a new, empty song.
      * <p/>
-     * @param title the title of the song.
+     *
+     * @param title  the title of the song.
      * @param author the author of the song.
-     * @param theme the theme of the song.
+     * @param theme  the theme of the song.
      */
     public SongDisplayable(String title, String author, ThemeDTO theme) {
         id = -1;
@@ -325,6 +345,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * Determine if this song was entered via quick insert, and thus should not
      * be updated in the database.
      * <p>
+     *
      * @return true if this is a "quick insert" song, false otherwise.
      */
     public boolean isQuickInSert() {
@@ -356,7 +377,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * lyrics. It should match a key in the translations map.
      *
      * @param currentTranslation the translation that should be displayed
-     * alongside the default lyrics.
+     *                           alongside the default lyrics.
      */
     public void setCurrentTranslationLyrics(String currentTranslation) {
         this.currentTranslation = currentTranslation;
@@ -410,6 +431,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Determine whether this song contains any lines of chords.
      * <p/>
+     *
      * @return true if it contains chords, false otherwise.
      */
     public boolean hasChords() {
@@ -425,6 +447,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the unique ID of the song.
      * <p/>
+     *
      * @return the ID of the song.
      */
     public long getID() {
@@ -434,6 +457,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the unique ID of this song.
      * <p/>
+     *
      * @param id the id of the song.
      */
     public void setID(long id) {
@@ -443,6 +467,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the title of this song.
      * <p/>
+     *
      * @return the title of this song.
      */
     public String getTitle() {
@@ -452,6 +477,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the title of the song.
      * <p/>
+     *
      * @param title the new song title.
      */
     public void setTitle(String title) {
@@ -466,6 +492,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the author of this song.
      * <p/>
+     *
      * @return the author of the song.
      */
     public String getAuthor() {
@@ -475,6 +502,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the author of the song.
      * <p/>
+     *
      * @param author the new song author.
      */
     public void setAuthor(String author) {
@@ -485,6 +513,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Return true because songs can be cleared.
      * <p/>
+     *
      * @return true, always.
      */
     @Override
@@ -495,6 +524,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the CCLI number of this song.
      * <p/>
+     *
      * @return the CCLI number of this song.
      */
     public String getCcli() {
@@ -504,6 +534,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the publisher of this song.
      * <p/>
+     *
      * @return the publisher of this song.
      */
     public String getPublisher() {
@@ -513,6 +544,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the year of this song.
      * <p/>
+     *
      * @return the year of this song.
      */
     public String getYear() {
@@ -522,6 +554,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Retrieve assigned theme
      * <p/>
+     *
      * @return assigned theme
      */
     public ThemeDTO getTheme() {
@@ -531,6 +564,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the copyright information of this song.
      * <p/>
+     *
      * @return the copyright information of this song.
      */
     public String getCopyright() {
@@ -540,6 +574,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the key of this song.
      * <p/>
+     *
      * @return the key of this song.
      */
     public String getKey() {
@@ -549,6 +584,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the general information about this song.
      * <p/>
+     *
      * @return the general information about this song.
      */
     public String getInfo() {
@@ -558,6 +594,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the capo of this song.
      * <p/>
+     *
      * @return the capo of this song.
      */
     public String getCapo() {
@@ -567,6 +604,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the capo of this song.
      * <p/>
+     *
      * @param capo the capo of this song.
      */
     public void setCapo(String capo) {
@@ -577,6 +615,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * Set whether to print the chords of this song - temporary field used when
      * printing chords.
      * <p/>
+     *
      * @param printChords true if chords should be printed, false otherwise.
      */
     public void setPrintChords(boolean printChords) {
@@ -586,6 +625,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the info of this song.
      * <p/>
+     *
      * @param info the info of this song.
      */
     public void setInfo(String info) {
@@ -595,6 +635,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the key of this song.
      * <p/>
+     *
      * @param key the key of this song.
      */
     public void setKey(String key) {
@@ -604,6 +645,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the ccli number of this song.
      * <p/>
+     *
      * @param ccli the ccli number of this song.
      */
     public void setCcli(String ccli) {
@@ -613,6 +655,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the publisher of this song.
      * <p/>
+     *
      * @param publisher the publisher of this song.
      */
     public void setPublisher(String publisher) {
@@ -622,6 +665,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the year of this song.
      * <p/>
+     *
      * @param year the year of this song.
      */
     public void setYear(String year) {
@@ -631,6 +675,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the copyright field of this song.
      * <p/>
+     *
      * @param copyright the copyright field of this song.
      */
     public void setCopyright(String copyright) {
@@ -653,7 +698,8 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * Get all the lyrics to this song as a string. This can be parsed using the
      * setLyrics() method.
      * <p/>
-     * @param chords true if any chords should be included, false otherwise.
+     *
+     * @param chords   true if any chords should be included, false otherwise.
      * @param comments true if any comments should be included, false otherwise.
      * @return the lyrics to this song.
      */
@@ -684,6 +730,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * currently in the song and parse the given lyrics into a number of song
      * sections.
      * <p/>
+     *
      * @param lyrics the lyrics to set as this song's lyrics.
      */
     public void setLyrics(String lyrics) {
@@ -716,8 +763,8 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
             String[] smallLines;
             if (churchCcliNum == null) {
                 smallLines = new String[]{
-                    title,
-                    author + ((ccli.equals("")) ? " " : (" (" + ccli + ")"))
+                        title,
+                        author + ((ccli.equals("")) ? " " : (" (" + ccli + ")"))
                 };
             } else {
                 String cpText = copyright.trim();
@@ -743,6 +790,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Add a section to this song.
      * <p/>
+     *
      * @param section the section to add.
      */
     public void addSection(TextSection section) {
@@ -755,7 +803,8 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Add a section to this song at the specified index.
      * <p/>
-     * @param index the index to add the song at.
+     *
+     * @param index   the index to add the song at.
      * @param section the section to add.
      */
     public void addSection(int index, TextSection section) {
@@ -768,6 +817,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Add a number of sections to this song.
      * <p/>
+     *
      * @param sections the sections to add.
      */
     public void addSections(TextSection[] sections) {
@@ -779,8 +829,9 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Replace the text section at the given index with the new section.
      * <p/>
+     *
      * @param newSection the new section to use to replace the existing one.
-     * @param index the index of the section to replace.
+     * @param index      the index of the section to replace.
      */
     public void replaceSection(TextSection newSection, int index) {
         sections.set(index, newSection);
@@ -789,6 +840,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Remove the given text section.
      * <p/>
+     *
      * @param index the index of the text section to remove.
      */
     public void removeSection(int index) {
@@ -798,6 +850,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get an array of all the sections in this song.
      * <p/>
+     *
      * @return the song sections.
      */
     @Override
@@ -808,6 +861,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Set the last search text (for highlighting.)
      * <p/>
+     *
      * @param lastSearch
      */
     public void setLastSearch(String lastSearch) {
@@ -819,6 +873,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * depends on what was searched for last, it bolds the search term in the
      * title (if it appears as such.)
      * <p/>
+     *
      * @return the appropriate HTML to display the song in the list.
      */
     public String getListHTML() {//@todo wrong method name
@@ -844,6 +899,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get a representation of this song in XML format.
      * <p/>
+     *
      * @return the song in XML format.
      */
     @Override
@@ -922,7 +978,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
      * Get the XML used to print the song (will be transferred via XSLT.)
      *
      * @param includeTranslations true if translations should be included in the
-     * export, false otherwise.
+     *                            export, false otherwise.
      * @return the XML used to print the song.
      */
     public String getPrintXML(boolean includeTranslations) {
@@ -972,6 +1028,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Parse a song in XML format and return the song object.
      * <p/>
+     *
      * @param xml the xml string to parse.
      * @return the song, or null if an error occurs.
      */
@@ -990,6 +1047,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Parse a song in XML format and return the song object.
      * <p/>
+     *
      * @param inputStream the input stream containing the xml.
      * @return the song, or null if an error occurs.
      */
@@ -1008,6 +1066,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Parse a song in XML format and return the song object.
      * <p/>
+     *
      * @param song the song node to parse.
      * @return the song, or null if an error occurs.
      */
@@ -1122,6 +1181,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Generate a hashcode for this song.
      * <p/>
+     *
      * @return the hashcode.
      */
     @Override
@@ -1138,6 +1198,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Determine whether this song equals another object.
      * <p/>
+     *
      * @param obj the other object.
      * @return true if the objects are equal, false otherwise.
      */
@@ -1168,6 +1229,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Compare this song to another song, first by title and then by author.
      * <p/>
+     *
      * @param other the other song.
      * @return 1 if this song is greater than the other song, 0 if they're the
      * same, and -1 if this is less than the other song.
@@ -1190,6 +1252,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get a string representation of this song.
      * <p/>
+     *
      * @return a string representation of the song.
      */
     @Override
@@ -1200,6 +1263,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the preview icon of this song.
      * <p/>
+     *
      * @return the song's preview icon.
      */
     @Override
@@ -1216,6 +1280,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get the preview text of this song.
      * <p/>
+     *
      * @return the song's preview text.
      */
     @Override
@@ -1238,6 +1303,7 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     /**
      * Get all the files used by this song.
      * <p/>
+     *
      * @return all the files used by this song.
      */
     @Override
@@ -1260,5 +1326,15 @@ public class SongDisplayable implements TextDisplayable, Comparable<SongDisplaya
     @Override
     public void dispose() {
         //Nothing needed here.
+    }
+
+    public String getFirstLine() {
+        for (String s : sections.get(0).getText(false, false)) {
+            if (new LineTypeChecker(s).getLineType() != LineTypeChecker.Type.TITLE) {
+                return s;
+            }
+        }
+        String allLyrics = getLyrics(false, false);
+        return allLyrics.contains("\n") ? allLyrics.substring(0, allLyrics.indexOf("\n")) : allLyrics;
     }
 }

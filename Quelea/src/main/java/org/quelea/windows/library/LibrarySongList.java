@@ -1,17 +1,17 @@
-/* 
+/*
  * This file is part of Quelea, free projection software for churches.
- * 
- * 
+ *
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -25,6 +25,7 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
 import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
@@ -58,6 +59,7 @@ import org.quelea.windows.main.widgets.LoadingPane;
 /**
  * The list that displays the songs in the library.
  * <p/>
+ *
  * @author Michael
  */
 public class LibrarySongList extends StackPane {
@@ -71,8 +73,9 @@ public class LibrarySongList extends StackPane {
     /**
      * Create a new library song list.
      * <p/>
+     *
      * @param popup true if we want a popup menu to appear on items in this list
-     * when right clicked, false if not.
+     *              when right clicked, false if not.
      * @popup true if this list should popup a context menu when right clicked,
      * false otherwise.
      */
@@ -105,6 +108,9 @@ public class LibrarySongList extends StackPane {
                         String songTitle = song.getListHTML();
                         if (!song.getAuthor().equals("")) {
                             songTitle += " - " + song.getAuthor();
+                        }
+                        if (song == songList.selectionModelProperty().get().getSelectedItem()) {
+                            songTitle += "\n\n\t" + song.getFirstLine();
                         }
                         return songTitle;
                     }
@@ -139,11 +145,13 @@ public class LibrarySongList extends StackPane {
             } else if (t.getClickCount() == 1 && t.isControlDown()) {
                 QueleaApp.get().getMainWindow().getMainPanel().getPreviewPanel().setDisplayable(songList.getSelectionModel().getSelectedItem(), 0);
             }
+            songList.refresh();
         });
         songList.setOnKeyPressed((KeyEvent t) -> {
             if (t.getCode() == KeyCode.ENTER) {
                 QueleaApp.get().getMainWindow().getMainPanel().getSchedulePanel().getScheduleList().add(getSelectedValue());
             }
+            songList.refresh();
         });
         if (popup) {
             songList.setCellFactory(DisplayableListCell.<SongDisplayable>forListView(popupMenu, callback, null));
@@ -157,12 +165,14 @@ public class LibrarySongList extends StackPane {
             refresh();
         });
     }
+
     private ExecutorService filterService = Executors.newSingleThreadExecutor();
     private Future<?> filterFuture;
 
     /**
      * Filter the results in this list by a specific search term.
      * <p/>
+     *
      * @param search the search term to use.
      */
     public void filter(final String search) {
@@ -239,6 +249,7 @@ public class LibrarySongList extends StackPane {
     /**
      * Get the currently selected song.
      * <p/>
+     *
      * @return the currently selected song, or null if none is selected.
      */
     public SongDisplayable getSelectedValue() {
@@ -248,6 +259,7 @@ public class LibrarySongList extends StackPane {
     /**
      * Get the popup menu associated with this list.
      * <p/>
+     *
      * @return the popup menu.
      */
     public LibraryPopupMenu getPopupMenu() {
@@ -257,6 +269,7 @@ public class LibrarySongList extends StackPane {
     /**
      * Get the actual list view in this song list.
      * <p>
+     *
      * @return the list view object.
      */
     public ListView<SongDisplayable> getListView() {
